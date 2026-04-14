@@ -28,7 +28,7 @@ export const demoGenerate = inngest.createFunction(
       );
       return results.filter(Boolean).join("\n\n");
     });
-    
+
     const finalPrompt = scrapedContent
       ? `Context:\n${scrapedContent}\n\nQuestion: ${prompt}`
       : prompt;
@@ -37,8 +37,30 @@ export const demoGenerate = inngest.createFunction(
       return await generateText({
         model: google('gemini-2.5-flash'),
         prompt: finalPrompt,
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       });
-    
+
     })
   },
 );
+
+
+export const demoError = inngest.createFunction(
+  { id: "demo-error" },
+  { event: "demo/error" },
+  async ({ step }) => {
+    await step.run("fail", async () => {
+      throw new Error("Inngest error: Background job failed!");
+    });
+  }
+);
+// Event Trigger { event: "demo/error" } ->{ event: "demo/error" }
+// API sends "demo/error"
+//         ↓
+// This function listens to "demo/error"
+//         ↓
+// This function runs
