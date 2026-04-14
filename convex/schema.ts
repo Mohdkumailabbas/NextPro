@@ -14,3 +14,4 @@ export default defineSchema({
     ),
   }).index("by_owner", ["ownerId"]),
 });
+
