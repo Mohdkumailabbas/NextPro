@@ -4,6 +4,7 @@ import { IBM_Plex_Mono, Inter } from "next/font/google";
 import { Providers } from "@/components/providers";
 
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 // import { Authenticated } from "convex/react";
 
 const inter = Inter({
@@ -28,14 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${inter.variable} ${plexMono.variable} antialiased`}
-        >
-          <Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${plexMono.variable} antialiased`}
+      >
+
+        <Providers>
+          <TooltipProvider>
+
             {children}
-          </Providers>
-        </body>
-      </html>
+          </TooltipProvider>
+        </Providers>
+      </body>
+    </html>
   );
 }
