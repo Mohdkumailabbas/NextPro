@@ -19,6 +19,7 @@ import { CreateInput } from "./create-input";
 import { RenameInput } from "./rename-input";
 import { TreeItemWrapper } from "./tree-item-wrapper";
 import { Doc, Id } from "../../../../../convex/_generated/dataModel";
+import { useEditor } from "@/features/editor/hooks/use-editor";
 
 export const Tree = ({
   item,
@@ -38,6 +39,7 @@ export const Tree = ({
   const createFile = useCreateFile();
   const createFolder = useCreateFolder();
 
+   const { openFile, closeTab, activeTabId } = useEditor(projectId);
   const folderContents = useFolderContents({
     projectId,
     parentId: item._id,
@@ -80,7 +82,7 @@ export const Tree = ({
 
   if (item.type === "file") {
     const fileName = item.name;
-
+    const isActive = activeTabId === item._id;
     if (isRenaming) {
       return (
         <RenameInput
@@ -97,12 +99,12 @@ export const Tree = ({
       <TreeItemWrapper
         item={item}
         level={level}
-        isActive={false}
-        onClick={() => {}}
-        onDoubleClick={() => {}}
+        isActive={isActive}
+        onClick={() => openFile(item._id, { pinned: false })}
+        onDoubleClick={() => openFile(item._id, { pinned: true })}
         onRename={() => setIsRenaming(true)}
         onDelete={() => {
-          // TODO: Close tab
+          closeTab(item._id);
           deleteFile({ id: item._id })
         }}
       >
