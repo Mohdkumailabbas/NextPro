@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/purity */
 import { useMutation, useQuery } from "convex/react";
 
