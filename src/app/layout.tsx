@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 // import { Authenticated } from "convex/react";
 
 const inter = Inter({
@@ -36,8 +37,8 @@ export default function RootLayout({
 
         <Providers>
           <TooltipProvider>
-
             {children}
+            <Toaster/>
           </TooltipProvider>
         </Providers>
       </body>
