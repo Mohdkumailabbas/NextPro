@@ -7,6 +7,7 @@ import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 // import { Authenticated } from "convex/react";
+import "allotment/dist/style.css";
 
 const inter = Inter({
   variable: "--font-inter",
